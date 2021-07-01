@@ -1,0 +1,8 @@
+*.o
+*.d
+*.a
+*.out
+.vscode/
+.DS_Store
+*drafts/
+checker_Mac
