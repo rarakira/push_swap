@@ -13,9 +13,15 @@ CC			= gcc
 
 CFLAGS		= -Wall -Wextra -Werror
 
+GFLAGS		= -g -fsanitize=address
+
 INCLUDES	= -Iincludes
 
 RM			= rm -f
+
+DEBUG		= debug
+
+ARGS		= -200 -150 -50 0 5 4 100 350 30 46 80 29 90 -2 -5 -1000
 
 all:	lib $(NAME)
 
@@ -26,7 +32,7 @@ $(NAME): $(OBJS) $(LIBDIR)/libft.a
 		$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 lib:
-		@$(MAKE) -C $(LIBDIR)
+		$(MAKE) -C $(LIBDIR)
 
 norm:
 	@norminette ./*.c $(LIBDIR)/*.c includes/*.h
@@ -42,10 +48,16 @@ fclean:	clean
 
 re:		fclean all
 
+$(DEBUG):
+		$(CC) $(CFLAGS) $(INCLUDES) $(GFLAGS) $(SRCS) -L$(LIBDIR) -l$(LIB) -o $(DEBUG)
+
 play: all
-		@./test
+		./$(NAME) $(ARGS)
 
-leaks: all
-		@valgrind --leak-check=full --show-leak-kinds=all ./test
+leaks: all $(DEBUG)
+		./$(DEBUG) $(ARGS)
 
-.PHONY: all clean fclean re test play norm leaks
+leaks_v: all
+		valgrind --leak-check=full --show-leak-kinds=all ./$(NAME) $(ARGS)
+
+.PHONY: all clean fclean re play norm leaks leaks_v debug

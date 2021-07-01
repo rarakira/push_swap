@@ -1,5 +1,11 @@
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
+# include <unistd.h>
+# include <stdlib.h>
+# include <stddef.h>
+# include "libft.h"
+
+# include <stdio.h>
 
 typedef struct s_list
 {
@@ -30,5 +36,6 @@ int		find_max(t_list *current);
 
 void	order_list(t_list **list, char list_name);
 void	print_list(t_list *start, int min_n, int max_n);
+void	print_back(t_list *start, int min_n, int max_n);
 
 #endif

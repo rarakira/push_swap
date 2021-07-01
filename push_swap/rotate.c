@@ -3,17 +3,10 @@
 
 void	rev_rotate(t_list **start, char list)
 {
-	t_list		*new_first;
-	t_list		*tmp;
-
-	new_first = *start;
-	while (new_first->next->next)
-		new_first = new_first->next;
-	tmp = new_first;
-	new_first = new_first->next;
-	tmp->next = NULL;
-	new_first->next = *start;
-	*start = new_first;
+	//(void) list;
+	(*start)->top = 0;
+	*start = (*start)->prev;
+	(*start)->top = 1;
 	if (list == 'a')
 		ft_putendl_fd("rra", 1);
 	else
@@ -22,16 +15,10 @@ void	rev_rotate(t_list **start, char list)
 
 void	rotate(t_list **start, char list)
 {
-	t_list		*first;
-	t_list		*tmp;
-
-	first = *start;
-	*start = first->next;
-	tmp = *start;
-	while (tmp->next)
-		tmp = tmp->next;
-	tmp->next = first;
-	first->next = NULL;
+	//(void) list;
+	(*start)->top = 0;
+	*start = (*start)->next;
+	(*start)->top = 1;
 	if (list == 'a')
 		ft_putendl_fd("ra", 1);
 	else
