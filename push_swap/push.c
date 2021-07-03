@@ -39,7 +39,7 @@ void	push_b(t_list **from, t_list **to)
 			order_list(to, 'b');
 		else
 		{
-			if (closer_to_start(find_min(*to), *to))
+			if (closer_to_start_num(tmp->num, *to))
 				while (!((*to)->prev->num < tmp->num && (*to)->num > tmp->num))
 					rotate(to, 'b');
 			else

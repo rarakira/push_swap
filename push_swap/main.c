@@ -76,20 +76,47 @@ void	clean_all(t_list *start)
 	}
 }
 
-int	push_swap(t_list **start_a, int min_n)
+int	count_larger_than(t_list *start_a, int mid_n)
+{
+	int		n;
+
+	n = 0;
+	if (start_a->num >= mid_n)
+		n++;
+	start_a = start_a->next;
+	while (!start_a->top)
+	{
+		if (start_a->num >= mid_n)
+			n++;
+		start_a = start_a->next;
+	}
+	return (n);
+}
+
+int	push_swap(t_list **start_a, int min_n, int mid_n)
 {
 	static t_list	*start_b;
+	int				i;
 	//print_list(*start_a, min_n, 123);
 	//print_list(start_b, min_n, 567);
 	if (!start_b && in_order(*start_a)) // all in order
 		return (0);
+	i = count_larger_than(*start_a, mid_n);
+	while (i && ((*start_a)->num != (*start_a)->next->next->num))
+	{
+		if ((*start_a)->num < mid_n)
+			rotate(start_a, 'a');
+		else
+		{
+			push_b(start_a, &start_b);
+			i--;
+		}
+	}
 	if ((*start_a)->num < (*start_a)->next->num || \
-		(((*start_a)->num > (*start_a)->next->num) && !(*start_a)->next->next))
+		((*start_a)->num > (*start_a)->next->num && ((*start_a)->num == (*start_a)->next->next->num)))
 		rotate(start_a, 'a');
 	else
 		push_b(start_a, &start_b);
-	//if ((*start_a)->num == min_n && !in_order(*start_a))
-	//	push_swap(start_a, min_n);
 	if (start_b && in_order(*start_a))
 	{
 		order_list(&start_b, 'b');
@@ -107,7 +134,7 @@ int	push_swap(t_list **start_a, int min_n)
 		}
 		order_list(start_a, 'a');
 	}
-	return (push_swap(start_a, min_n));
+	return (push_swap(start_a, min_n, mid_n));
 }
 
 int	main(int argc, char **argv)
@@ -127,7 +154,7 @@ int	main(int argc, char **argv)
 	//print_list(start_a, min_n, 1);
 	mid_n = (min_n + max_n) / 2;
 	if (!in_order(start_a))
-		res = push_swap(&start_a, min_n);
+		res = push_swap(&start_a, min_n, mid_n);
 	//print_list(start_a, min_n, 2);
 	clean_all(start_a);
 	return (0);

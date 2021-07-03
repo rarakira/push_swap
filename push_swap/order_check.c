@@ -43,6 +43,7 @@ int	find_max(t_list *current)
 	return (max_n);
 }
 
+/*
 int	closer_to_start(int min, t_list *list)
 {
 	int		last;
@@ -59,6 +60,63 @@ int	closer_to_start(int min, t_list *list)
 			break ;
 	}
 	return ((last / 2) > found);
+}
+*/
+
+int	closer_to_start_num(int num, t_list *list)
+{
+	t_list		*first;
+	int			next;
+	int			prev;
+
+	first = list;
+	next = 0;
+	prev = 0;
+	while (list && ++next)
+	{
+		if (list->num > num && list->next->num)
+			break ;
+		list = list->next;
+		if (list->top)
+			break ;
+	}
+	while (first && ++prev)
+	{
+		if (list->num > num && list->next->num)
+			break ;
+		first = first->prev;
+		if (first->top)
+			break ;
+	}
+	return (next > prev);	
+}
+
+int	closer_to_start(int num, t_list *list)
+{
+	t_list		*first;
+	int			next;
+	int			prev;
+
+	first = list;
+	next = 0;
+	prev = 0;
+	while (list && ++next)
+	{
+		if (list->num == num)
+			break ;
+		list = list->next;
+		if (list->top)
+			break ;
+	}
+	while (first && ++prev)
+	{
+		if (first->num == num)
+			break ;
+		first = first->prev;
+		if (first->top)
+			break ;
+	}
+	return (next < prev);	
 }
 
 int	is_last(t_list *list, int n)

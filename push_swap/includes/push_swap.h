@@ -15,7 +15,7 @@ typedef struct s_list
 	int				top;
 }	t_list;
 
-int		push_swap(t_list **start_a, int min_n);
+int		push_swap(t_list **start_a, int min_n, int mid_n);
 void	clean_all(t_list *start);
 
 void	push_b(t_list **from, t_list **to);
@@ -29,6 +29,7 @@ t_list	*init_value(char *num);
 
 int		in_order(t_list *start);
 int		closer_to_start(int min, t_list *list);
+int		closer_to_start_num(int num, t_list *list);
 int		is_last(t_list *list, int n);
 
 int		find_min(t_list *current);
