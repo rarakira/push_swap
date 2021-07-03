@@ -63,34 +63,6 @@ int	closer_to_start(int min, t_list *list)
 }
 */
 
-int	closer_to_start_num(int num, t_list *list)
-{
-	t_list		*first;
-	int			next;
-	int			prev;
-
-	first = list;
-	next = 0;
-	prev = 0;
-	while (list && ++next)
-	{
-		if (list->num > num && list->next->num)
-			break ;
-		list = list->next;
-		if (list->top)
-			break ;
-	}
-	while (first && ++prev)
-	{
-		if (list->num > num && list->next->num)
-			break ;
-		first = first->prev;
-		if (first->top)
-			break ;
-	}
-	return (next > prev);	
-}
-
 int	closer_to_start(int num, t_list *list)
 {
 	t_list		*first;
@@ -102,7 +74,7 @@ int	closer_to_start(int num, t_list *list)
 	prev = 0;
 	while (list && ++next)
 	{
-		if (list->num == num)
+		if (list->num == num || (list->prev->num < num && list->num > num))
 			break ;
 		list = list->next;
 		if (list->top)
@@ -110,7 +82,7 @@ int	closer_to_start(int num, t_list *list)
 	}
 	while (first && ++prev)
 	{
-		if (first->num == num)
+		if (first->num == num || (first->prev->num < num && first->num > num))
 			break ;
 		first = first->prev;
 		if (first->top)
