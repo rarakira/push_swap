@@ -15,18 +15,24 @@ static int	check_dup(int n, t_list *start)
 t_list	*init_value(char	*num)
 {
 	t_list		*this;
+	int			i;
 
+	i = 0;
+	while (num[i] != '\0')
+		if (ft_isalpha(num[i++]))
+			return (NULL);
 	this = (t_list *)malloc(sizeof(t_list));
 	if (!this)
 		return (NULL);
 	this->next = NULL;
 	this->prev = NULL;
 	this->top = 0;
+	this->order = 0;
 	this->num = ft_atoi(num);
 	return (this);
 }
 
-t_list	*get_arguments(int argc, char **argv, int *min_n, int *max_n)
+t_list	*get_arguments(int argc, char **argv)
 {
 	t_list			*start;
 	t_list			*current;
@@ -34,12 +40,10 @@ t_list	*get_arguments(int argc, char **argv, int *min_n, int *max_n)
 
 	i = 1;
 	start = init_value(argv[i++]);
-	start->top = 1;
 	if (!start)
 		return (NULL);
+	start->top = 1;
 	current = start;
-	*min_n = current->num;
-	*max_n = current->num;
 	while (i < (unsigned)argc)
 	{
 		current->next = init_value(argv[i++]);
@@ -50,10 +54,6 @@ t_list	*get_arguments(int argc, char **argv, int *min_n, int *max_n)
 		}
 		current->next->prev = current;
 		current = current->next;
-		if (*min_n > current->num)
-			*min_n = current->num;
-		if (*max_n < current->num)
-			*max_n = current->num;
 	}
 	current->next = start;
 	start->prev = current;

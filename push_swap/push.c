@@ -1,36 +1,11 @@
 #include "libft.h"
 #include "push_swap.h"
 
-void	push_b(t_list **from, t_list **to)
+static void	rotate_for_tmp(t_list **to, t_list *tmp)
 {
-	t_list		*tmp;
 	int			min;
 	int			max;
 
-	tmp = *from;
-	(*from)->next->top = 1;
-	(*from)->next->prev = (*from)->prev;
-	(*from)->prev->next = (*from)->next;
-	*from = (*from)->next;
-	if (*to == NULL)
-	{
-		tmp->next = tmp;
-		tmp->prev = tmp;
-		*to = tmp;
-		ft_putendl_fd("pb", 1);
-		return ;
-	}
-	if (*to == (*to)->next)
-	{
-		tmp->next = *to;
-		tmp->prev = *to;
-		(*to)->top = 0;
-		(*to)->prev = tmp;
-		(*to)->next = tmp;
-		*to = tmp;
-		ft_putendl_fd("pb", 1);
-		return ;
-	}
 	max = find_max(*to);
 	min = find_min(*to);
 	if ((*to)->next)
@@ -47,13 +22,49 @@ void	push_b(t_list **from, t_list **to)
 					rev_rotate(to, 'b');
 		}
 	}
-	tmp->next = *to;
-	tmp->prev = (*to)->prev;
-	(*to)->top = 0;
-	(*to)->prev = tmp;
-	*to = tmp;
-	tmp = tmp->prev;
-	tmp->next = *to;
+}
+
+void	first_second_elt(t_list **to, t_list *tmp)
+{
+	if (*to == NULL)
+	{
+		tmp->next = tmp;
+		tmp->prev = tmp;
+		*to = tmp;
+	}
+	else if (*to == (*to)->next)
+	{
+		tmp->next = *to;
+		tmp->prev = *to;
+		(*to)->top = 0;
+		(*to)->prev = tmp;
+		(*to)->next = tmp;
+		*to = tmp;
+	}
+}
+
+void	push_b(t_list **from, t_list **to)
+{
+	t_list		*tmp;
+
+	tmp = *from;
+	(*from)->next->top = 1;
+	(*from)->next->prev = (*from)->prev;
+	(*from)->prev->next = (*from)->next;
+	*from = (*from)->next;
+	if (*to == NULL || *to == (*to)->next)
+		first_second_elt(to, tmp);
+	else
+	{
+		rotate_for_tmp(to, tmp);
+		tmp->next = *to;
+		tmp->prev = (*to)->prev;
+		(*to)->top = 0;
+		(*to)->prev = tmp;
+		*to = tmp;
+		tmp = tmp->prev;
+		tmp->next = *to;
+	}
 	ft_putendl_fd("pb", 1);
 }
 
@@ -63,6 +74,7 @@ void	push_a(t_list **from, t_list **to)
 	t_list		*tmp;
 
 	tmp = *from;
+	tmp->order = 1;
 	if (*from != (*from)->next)
 	{
 		last = (*from)->prev;

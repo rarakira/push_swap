@@ -1,9 +1,9 @@
 #include "libft.h"
 #include "push_swap.h"
 
+//(void) list;
 void	rev_rotate(t_list **start, char list)
 {
-	//(void) list;
 	(*start)->top = 0;
 	*start = (*start)->prev;
 	(*start)->top = 1;
@@ -15,7 +15,6 @@ void	rev_rotate(t_list **start, char list)
 
 void	rotate(t_list **start, char list)
 {
-	//(void) list;
 	(*start)->top = 0;
 	*start = (*start)->next;
 	(*start)->top = 1;

@@ -1,7 +1,11 @@
 NAME		= push_swap
 
-SRCS		=	main.c			get_arguments.c			order_check.c\
-				push.c			rotate.c				swap.c
+SRCS		=	main.c					push_swap.c\
+				get_arguments.c			print_list.c\
+				find_values.c			parts_and_order.c\
+				order_check.c			\
+				push.c					rotate.c\
+				swap.c
 
 OBJS		= $(SRCS:.c=.o)
 
