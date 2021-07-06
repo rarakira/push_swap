@@ -14,7 +14,7 @@ void	clean_all(t_list *start)
 		current = start;
 		start = start->next;
 		free(current);
-		if (current == current->next || current->top)
+		if (!start)
 			break ;
 	}
 }
