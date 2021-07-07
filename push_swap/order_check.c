@@ -1,15 +1,25 @@
 #include "push_swap.h"
 
+/* Puts the list in order*/
 void	order_list(t_list **list, char list_name)
 {
-	if (closer_to_start(find_min(*list), *list))
-		while (!in_order(*list))
+	int		n;
+
+	if (*list == NULL)
+		return ;
+	if (list_name == 'a')
+		n = find_min(*list);
+	else
+		n = find_max(*list);
+	if (closer_to_start(n, *list, list_name))
+		while (!in_order(*list, list_name))
 			rotate(list, list_name);
 	else
-		while (!in_order(*list))
+		while (!in_order(*list, list_name))
 			rev_rotate(list, list_name);
 }
 
+/* Checks whether the list is ordered [MAX & MIN can be at any location] */
 int	is_ordered(t_list *start)
 {
 	int		min;
@@ -29,41 +39,64 @@ int	is_ordered(t_list *start)
 	return (1);
 }
 
-int	in_order(t_list *start)
+/* Checks whether the list is in order [from MIN to MAX] */
+int	in_order(t_list *start, char list_name)
 {
-	while (!start->next->top)
+	if (list_name == 'a')
 	{
-		if (start->num > start->next->num)
-			return (0);
-		start = start->next;
+		while (!start->next->top)
+		{
+			if (start->num > start->next->num)
+				return (0);
+			start = start->next;
+		}
+	}
+	else
+	{
+		while (!start->next->top)
+		{
+			if (start->num < start->next->num)
+				return (0);
+			start = start->next;
+		}
 	}
 	return (1);
 }
 
-int	closer_to_start(int num, t_list *list)
-{
-	t_list		*first;
-	int			next;
-	int			prev;
+/* Counts steps from current location to its ordered place
 
-	first = list;
-	next = 0;
-	prev = 0;
-	while (list && ++next)
+To count forwards: type = 1
+To count backwards: type != 1 */
+static int	count_steps(t_list *list, char list_name, int num, int type)
+{
+	int		count;
+
+	count = 0;
+	while (list && ++count)
 	{
-		if (list->num == num || (list->prev->num < num && list->num > num))
-			break ;
-		list = list->next;
+		if (list_name == 'a')
+			if (list->num == num || (list->prev->num < num && list->num > num))
+				break ;
+		if (list_name == 'b')
+			if (list->num == num || (list->prev->num > num && list->num < num))
+				break ;
+		if (type == 1)
+			list = list->next;
+		else
+			list = list->prev;
 		if (list->top)
 			break ;
 	}
-	while (first && ++prev)
-	{
-		if (first->num == num || (first->prev->num < num && first->num > num))
-			break ;
-		first = first->prev;
-		if (first->top)
-			break ;
-	}
+	return (count);
+}
+
+/* Checks if NUM is closer to beginning or end of the list */
+int	closer_to_start(int num, t_list *list, char list_name)
+{
+	int			next;
+	int			prev;
+
+	next = count_steps(list, list_name, num, 1);
+	prev = count_steps(list, list_name, num, 0);
 	return (next < prev);
 }

@@ -1,5 +1,6 @@
 #include "push_swap.h"
 
+/* Check for duplicates in list */
 static int	check_dup(int n, t_list *start)
 {
 	while (start->next)
@@ -12,7 +13,8 @@ static int	check_dup(int n, t_list *start)
 	return (0);
 }
 
-t_list	*init_value(char	*num)
+/* Create new t_list element */
+static t_list	*init_value(char *num)
 {
 	t_list		*this;
 	int			i;
@@ -32,6 +34,7 @@ t_list	*init_value(char	*num)
 	return (this);
 }
 
+/* Create a list from the arguments passed to function */
 t_list	*get_arguments(int argc, char **argv)
 {
 	t_list			*start;

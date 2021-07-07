@@ -1,6 +1,7 @@
 #include "libft.h"
 #include "push_swap.h"
 
+/* Puts list B in order to push an element*/
 static void	rotate_for_tmp(t_list **to, t_list *tmp)
 {
 	int			min;
@@ -14,17 +15,18 @@ static void	rotate_for_tmp(t_list **to, t_list *tmp)
 			order_list(to, 'b');
 		else
 		{
-			if (closer_to_start(tmp->num, *to))
-				while (!((*to)->prev->num < tmp->num && (*to)->num > tmp->num))
+			if (closer_to_start(tmp->num, *to, 'b'))
+				while (!((*to)->prev->num > tmp->num && (*to)->num < tmp->num))
 					rotate(to, 'b');
 			else
-				while (!((*to)->prev->num < tmp->num && (*to)->num > tmp->num))
+				while (!((*to)->prev->num > tmp->num && (*to)->num < tmp->num))
 					rev_rotate(to, 'b');
 		}
 	}
 }
 
-void	first_second_elt(t_list **to, t_list *tmp)
+/* Function that adds first and second element to the list B */
+static void	first_second_elt(t_list **to, t_list *tmp)
 {
 	if (*to == NULL)
 	{
@@ -43,6 +45,7 @@ void	first_second_elt(t_list **to, t_list *tmp)
 	}
 }
 
+/* Push to B operation */
 void	push_b(t_list **from, t_list **to)
 {
 	t_list		*tmp;
@@ -68,6 +71,7 @@ void	push_b(t_list **from, t_list **to)
 	ft_putendl_fd("pb", 1);
 }
 
+/* Push to A operation */
 void	push_a(t_list **from, t_list **to)
 {
 	t_list		*last;

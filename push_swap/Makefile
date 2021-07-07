@@ -2,8 +2,8 @@ NAME		= push_swap
 
 SRCS		=	main.c					push_swap.c\
 				get_arguments.c			print_list.c\
-				find_values.c			parts_and_order.c\
-				order_check.c			\
+				find_values.c			order_check.c\
+				mark_ordered.c			mark_middle_nums.c\
 				push.c					rotate.c\
 				swap.c
 
@@ -29,7 +29,7 @@ ARGS		= -200 -150 -50 0 5 4 100 350 30 46 80 29 90 -2 -5 -1000
 
 all:	lib $(NAME)
 
-$(NAME): $(OBJS) $(LIBDIR)/libft.a
+$(NAME): ./includes/push_swap.h $(OBJS) $(LIBDIR)/libft.a
 		$(CC) $(CFLAGS) $(OBJS) -L$(LIBDIR) -l$(LIB) -o $(NAME)
 
 %.o : %.c

@@ -35,7 +35,7 @@ int	main(int argc, char **argv)
 		return (1);
 	}
 	step = count_parts(start_a, &parts);
-	if (!in_order(start_a))
+	if (!in_order(start_a, 'a'))
 	{
 		mark_ordered(start_a);
 		push_swap(&start_a, step, parts);
