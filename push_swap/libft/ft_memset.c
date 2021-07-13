@@ -1,20 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putendl_fd.c                                    :+:      :+:    :+:   */
+/*   ft_memset.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lbaela <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/25 21:08:07 by lbaela            #+#    #+#             */
-/*   Updated: 2021/04/25 21:17:25 by lbaela           ###   ########.fr       */
+/*   Created: 2021/04/19 11:34:02 by lbaela            #+#    #+#             */
+/*   Updated: 2021/04/27 15:56:18 by lbaela           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-/* Outputs the string ’s’ to the given file descriptor followed by a newline. */
-void	ft_putendl_fd(char *s, int fd)
+/* Function writes 'len' bytes of value 'c' to the string 'b'. */
+void	*ft_memset(void *b, int c, size_t len)
 {
-	ft_putstr_fd(s, fd);
-	write(fd, "\n", 1);
+	while (len > 0)
+		((unsigned char *)b)[--len] = (unsigned char)c;
+	return (b);
 }

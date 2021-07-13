@@ -1,19 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isdigit.c                                       :+:      :+:    :+:   */
+/*   ft_memcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lbaela <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/22 12:58:14 by lbaela            #+#    #+#             */
-/*   Updated: 2021/04/27 15:27:34 by lbaela           ###   ########.fr       */
+/*   Created: 2021/04/19 13:33:34 by lbaela            #+#    #+#             */
+/*   Updated: 2021/07/05 17:44:44 by lbaela           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-/* Function tests whether character is a digit. */
-int	ft_isdigit(int c)
+/* The function copies 'n' bytes from memory area 'src' to memory area 'dst'. */
+void	*ft_memcpy(void *dst, const void *src, size_t n)
 {
-	return (c >= '0' && c <= '9');
+	size_t	i;
+
+	i = 0;
+	if (!dst && !src)
+		return (NULL);
+	while (i < n)
+	{
+		((unsigned char *)dst)[i] = ((unsigned char *)src)[i];
+		i++;
+	}
+	return (dst);
 }

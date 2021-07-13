@@ -47,7 +47,7 @@ clean:
 #		@echo "*  Push_swap objects removed"
 
 fclean:	clean
-		$(RM) $(NAME)
+		$(RM) $(NAME) debug
 		$(MAKE) fclean -C $(LIBDIR)
 
 re:		fclean all

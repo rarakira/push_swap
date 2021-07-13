@@ -2,11 +2,13 @@
 *.d
 *.a
 *.out
+*.aSYM
 .vscode/
 .DS_Store
 *drafts/
 checker_Mac
-push_swap
+*/push_swap
+push_swap/push_swap_*
 debug
-push_swap_v0/push_swap*
-push_swap_v1/push_swap*
+test.sh
+checker
