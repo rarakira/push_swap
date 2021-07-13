@@ -2,7 +2,7 @@
 #include "push_swap.h"
 
 /* Swap operation */
-void	swap(t_list **start, char list)
+void	swap(t_list **start, char list, t_cmd **cmds)
 {
 	int		tmp;
 
@@ -11,9 +11,9 @@ void	swap(t_list **start, char list)
 	(*start)->next->num = tmp;
 	(*start)->order = 1;
 	if (list == 'a')
-		ft_putendl_fd("sa", 1);
+		add_cmd("sa", cmds);
 	else
-		ft_putendl_fd("sb", 1);
+		add_cmd("sb", cmds);
 }
 
 /* Checks if there are elements in the list that need swapping */
@@ -34,12 +34,12 @@ static int	needs_swap(t_list *list)
 }
 
 /* Checks if the list needs swapping and swaps the elements */
-void	do_the_swapping(t_list **list)
+void	do_the_swapping(t_list **list, t_cmd **cmds)
 {
 	while (needs_swap(*list))
 	{
 		while ((*list)->order != 2)
-			rotate(list, 'a');
-		swap(list, 'a');
+			rotate(list, 'a', cmds);
+		swap(list, 'a', cmds);
 	}
 }

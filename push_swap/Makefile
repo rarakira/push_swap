@@ -5,7 +5,7 @@ SRCS		=	main.c					push_swap.c\
 				find_values.c			order_check.c\
 				mark_ordered.c			mark_middle_nums.c\
 				push.c					rotate.c\
-				swap.c
+				swap.c					commands.c
 
 OBJS		= $(SRCS:.c=.o)
 

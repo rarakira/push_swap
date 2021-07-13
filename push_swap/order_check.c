@@ -1,7 +1,7 @@
 #include "push_swap.h"
 
 /* Puts the list in order*/
-void	order_list(t_list **list, char list_name)
+void	order_list(t_list **list, char list_name, t_cmd **cmds)
 {
 	int		n;
 
@@ -13,10 +13,10 @@ void	order_list(t_list **list, char list_name)
 		n = find_max(*list);
 	if (closer_to_start(n, *list, list_name))
 		while (!in_order(*list, list_name))
-			rotate(list, list_name);
+			rotate(list, list_name, cmds);
 	else
 		while (!in_order(*list, list_name))
-			rev_rotate(list, list_name);
+			rev_rotate(list, list_name, cmds);
 }
 
 /* Checks whether the list is ordered [MAX & MIN can be at any location] */

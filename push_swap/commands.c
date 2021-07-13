@@ -1,14 +1,6 @@
 #include "push_swap.h"
 
-typedef struct s_cmd
-{
-	int				order;
-	struct s_instr	*prev;
-	struct s_instr	*next;
-	char			cmd[4];
-}	t_cmd;
-
-t_cmd	*create_new(t_cmd *start, char *cmd)
+t_cmd	*create_new_cmd(char *cmd)
 {
 	t_cmd	*this;
 
@@ -20,4 +12,23 @@ t_cmd	*create_new(t_cmd *start, char *cmd)
 	ft_memset(this->cmd, 0, 4);
 	ft_memcpy(this->cmd, cmd, 3);
 	return (this);
+}
+
+void	add_cmd(char *cmd, t_cmd **start)
+{
+	t_cmd	*last;
+	t_cmd	*tmp;
+
+	last = *start;
+	if (!(*start))
+		*start = create_new_cmd(cmd);
+	else
+	{
+		while (last->next)
+			last = last->next;
+		last->next = create_new_cmd(cmd);
+		tmp = last;
+		last = last->next;
+		last->prev = tmp;
+	}
 }

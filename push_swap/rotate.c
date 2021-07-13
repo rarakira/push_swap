@@ -2,24 +2,24 @@
 #include "push_swap.h"
 
 //(void) list;
-void	rev_rotate(t_list **start, char list)
+void	rev_rotate(t_list **start, char list, t_cmd **cmds)
 {
 	(*start)->top = 0;
 	*start = (*start)->prev;
 	(*start)->top = 1;
 	if (list == 'a')
-		ft_putendl_fd("rra", 1);
+		add_cmd("rra", cmds);
 	else
-		ft_putendl_fd("rrb", 1);
+		add_cmd("rrb", cmds);
 }
 
-void	rotate(t_list **start, char list)
+void	rotate(t_list **start, char list, t_cmd **cmds)
 {
 	(*start)->top = 0;
 	*start = (*start)->next;
 	(*start)->top = 1;
 	if (list == 'a')
-		ft_putendl_fd("ra", 1);
+		add_cmd("ra", cmds);
 	else
-		ft_putendl_fd("rb", 1);
+		add_cmd("rb", cmds);
 }

@@ -52,7 +52,7 @@ t_list	*get_arguments(int argc, char **argv)
 		current->next = init_value(argv[i++]);
 		if (!current->next || check_dup(current->next->num, start))
 		{
-			clean_all(start);
+			clean_list(start);
 			return (NULL);
 		}
 		current->next->prev = current;

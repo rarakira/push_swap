@@ -2,7 +2,7 @@
 #include "push_swap.h"
 
 /* Puts list B in order to push an element*/
-static void	rotate_for_tmp(t_list **to, t_list *tmp)
+static void	rotate_for_tmp(t_list **to, t_list *tmp, t_cmd **cmds)
 {
 	int			min;
 	int			max;
@@ -12,15 +12,15 @@ static void	rotate_for_tmp(t_list **to, t_list *tmp)
 	if ((*to)->next)
 	{
 		if (tmp->num < min || tmp->num > max)
-			order_list(to, 'b');
+			order_list(to, 'b', cmds);
 		else
 		{
 			if (closer_to_start(tmp->num, *to, 'b'))
 				while (!((*to)->prev->num > tmp->num && (*to)->num < tmp->num))
-					rotate(to, 'b');
+					rotate(to, 'b', cmds);
 			else
 				while (!((*to)->prev->num > tmp->num && (*to)->num < tmp->num))
-					rev_rotate(to, 'b');
+					rev_rotate(to, 'b', cmds);
 		}
 	}
 }
@@ -46,7 +46,7 @@ static void	first_second_elt(t_list **to, t_list *tmp)
 }
 
 /* Push to B operation */
-void	push_b(t_list **from, t_list **to)
+void	push_b(t_list **from, t_list **to, t_cmd **cmds)
 {
 	t_list		*tmp;
 
@@ -59,7 +59,7 @@ void	push_b(t_list **from, t_list **to)
 		first_second_elt(to, tmp);
 	else
 	{
-		rotate_for_tmp(to, tmp);
+		rotate_for_tmp(to, tmp, cmds);
 		tmp->next = *to;
 		tmp->prev = (*to)->prev;
 		(*to)->top = 0;
@@ -68,11 +68,11 @@ void	push_b(t_list **from, t_list **to)
 		tmp = tmp->prev;
 		tmp->next = *to;
 	}
-	ft_putendl_fd("pb", 1);
+	add_cmd("pb", cmds);
 }
 
 /* Push to A operation */
-void	push_a(t_list **from, t_list **to)
+void	push_a(t_list **from, t_list **to, t_cmd **cmds)
 {
 	t_list		*last;
 	t_list		*tmp;
@@ -96,5 +96,5 @@ void	push_a(t_list **from, t_list **to)
 	*to = tmp;
 	tmp = tmp->prev;
 	tmp->next = *to;
-	ft_putendl_fd("pa", 1);
+	add_cmd("pa", cmds);
 }

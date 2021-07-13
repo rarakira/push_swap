@@ -1,6 +1,6 @@
 #include "push_swap.h"
 
-void	clean_all(t_list *start)
+void	clean_list(t_list *start)
 {
 	t_list	*current;
 
@@ -19,13 +19,46 @@ void	clean_all(t_list *start)
 	}
 }
 
+void	clean_cmds(t_cmd *start)
+{
+	t_cmd	*current;
+
+	if (start->prev)
+	{
+		current = start->prev;
+		current->next = NULL;
+	}
+	while (start)
+	{
+		current = start;
+		start = start->next;
+		free(current);
+		if (!start)
+			break ;
+	}
+}
+
+void	print_cmds(t_cmd *cmds)
+{
+	t_cmd	*tmp;
+
+	tmp = cmds;
+	while (tmp)
+	{
+		ft_putendl_fd(tmp->cmd, 1);
+		tmp = tmp->next;
+	}
+}
+
 //print_list(start_a, "MAIN");
 int	main(int argc, char **argv)
 {
 	int		parts;
 	int		step;
 	t_list	*start_a;
+	t_cmd	*cmds;
 
+	cmds = NULL;
 	if (argc == 1)
 		return (1);
 	start_a = get_arguments(argc, argv);
@@ -38,8 +71,10 @@ int	main(int argc, char **argv)
 	if (!in_order(start_a, 'a'))
 	{
 		mark_ordered(start_a);
-		push_swap(&start_a, step, parts);
+		push_swap(&start_a, step, parts, &cmds);
 	}
-	clean_all(start_a);
+	print_cmds(cmds);
+	clean_list(start_a);
+	clean_cmds(cmds);
 	return (0);
 }
