@@ -3,6 +3,7 @@
 *.a
 *.out
 *.aSYM
+*SYM
 .vscode/
 .DS_Store
 *drafts/

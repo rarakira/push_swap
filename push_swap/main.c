@@ -38,18 +38,6 @@ void	clean_cmds(t_cmd *start)
 	}
 }
 
-void	print_cmds(t_cmd *cmds)
-{
-	t_cmd	*tmp;
-
-	tmp = cmds;
-	while (tmp)
-	{
-		ft_putendl_fd(tmp->cmd, 1);
-		tmp = tmp->next;
-	}
-}
-
 //print_list(start_a, "MAIN");
 int	main(int argc, char **argv)
 {

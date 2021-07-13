@@ -18,6 +18,7 @@ typedef struct s_list
 
 typedef struct s_cmd
 {
+	int				print;
 	struct s_cmd	*prev;
 	struct s_cmd	*next;
 	char			cmd[4];
@@ -27,6 +28,7 @@ void	push_swap(t_list **start_a, int step, int parts, t_cmd **cmds);
 void	clean_list(t_list *start);
 
 void	add_cmd(char *cmd, t_cmd **start);
+void	print_cmds(t_cmd *cmds);
 
 int		count_parts(t_list *list, int *parts);
 void	mark_ordered(t_list *list);
