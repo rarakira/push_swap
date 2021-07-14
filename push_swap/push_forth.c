@@ -21,10 +21,10 @@ static int	next_is_closer(t_list **start_a, t_list **start_b, int threshold)
 	tmp = *start_a;
 	if (!(*start_b))
 		return (0);
-	n = check_closest((*start_a)->num, (*start_b)->num);
+	n = check_closest((*start_a)->index, (*start_b)->index);
 	tmp = tmp->next;
-	if (tmp->order || tmp->num < threshold
-		|| n < check_closest(tmp->num, (*start_b)->num))
+	if (tmp->order || tmp->index < threshold
+		|| n < check_closest(tmp->index, (*start_b)->index))
 		return (0);
 	return (1);
 }
@@ -34,7 +34,7 @@ Rotate A otherwise. */
 void	push_forth(t_list **start_a, t_list **start_b, int threshold,
 t_cmd **cmds)
 {
-	if ((*start_a)->order || (*start_a)->num < threshold)
+	if ((*start_a)->order || (*start_a)->index < threshold)
 		rotate(start_a, 'a', cmds);
 	else
 	{

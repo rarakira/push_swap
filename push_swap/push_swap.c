@@ -43,19 +43,19 @@ static int	count_larger_than(t_list *start_a, int threshold)
 	int		n;
 
 	n = 0;
-	if (!(start_a->order) && start_a->num >= threshold)
+	if (!(start_a->order) && start_a->index >= threshold)
 		n++;
 	start_a = start_a->next;
 	while (!start_a->top)
 	{
-		if (!(start_a->order) && start_a->num >= threshold)
+		if (!(start_a->order) && start_a->index >= threshold)
 			n++;
 		start_a = start_a->next;
 	}
 	return (n);
 }
 
-void	push_swap(t_list **start_a, int s, int parts, t_cmd **cmds)
+void	push_swap(t_list **start_a, int steps, int parts, t_cmd **cmds)
 {
 	static t_list	*start_b;
 	static int		min_n;
@@ -65,21 +65,36 @@ void	push_swap(t_list **start_a, int s, int parts, t_cmd **cmds)
 	max_n = init_static_values(*start_a, &min_n, &i, parts);
 	if (!start_b && in_order(*start_a, 'a'))
 		return ;
-	while ((i <= parts) && ((*start_a)->num != (*start_a)->next->next->num))
+	while (i <= parts)
 	{
 		if (i < parts)
 		{
-			if (count_larger_than(*start_a, max_n - (s * i)) < 5)
-				push_forth(start_a, &start_b, max_n - (s * i) - (s / 2), cmds);
+			if (count_larger_than(*start_a, (steps * parts) - (steps * i)) < 5)
+				push_forth(start_a, &start_b, (steps * parts) - (steps * i) - 10, cmds);
 			else
-				push_forth(start_a, &start_b, max_n - (s * i), cmds);
+				push_forth(start_a, &start_b, (steps * parts) - (steps * i), cmds);
 		}
 		else
-			push_forth(start_a, &start_b, min_n, cmds);
-		if ((i < parts && !count_larger_than(*start_a, max_n - (s * i)))
-			|| (i == parts && !count_larger_than(*start_a, min_n)))
+			push_forth(start_a, &start_b, 0, cmds);
+		if ((i < parts && !count_larger_than(*start_a, (steps * parts) - (steps * i)))
+			|| (i == parts && !count_larger_than(*start_a, 0)))
 			i++;
 	}
 	push_back(start_a, &start_b, min_n, cmds);
-	return (push_swap(start_a, s, parts, cmds));
+	return (push_swap(start_a, steps, parts, cmds));
 }
+
+/*
+while (i <= parts)
+	{
+		if (i < parts)
+		{
+			push_forth(start_a, &start_b, count / i, cmds);
+		}
+		else
+			push_forth(start_a, &start_b, min_n, cmds);
+		if ((i < parts && !count_larger_than(*start_a, count / i))
+			|| (i == parts && !count_larger_than(*start_a, min_n)))
+			i++;
+	}
+*/

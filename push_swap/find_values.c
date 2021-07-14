@@ -88,6 +88,6 @@ int	count_parts(t_list *list, int *parts)
 		*parts = count / 15;
 	else
 		*parts = count / 40;
-	step = (max_n - min_n) / (*parts);
+	step = count / (*parts);
 	return (step);
 }

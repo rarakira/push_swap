@@ -44,7 +44,7 @@ void	clean_cmds(t_cmd *start)
 int	main(int argc, char **argv)
 {
 	int		parts;
-	int		step;
+	int		steps;
 	t_list	*start_a;
 	t_cmd	*cmds;
 
@@ -57,15 +57,15 @@ int	main(int argc, char **argv)
 		ft_putendl_fd("Error", 1);
 		return (1);
 	}
-	step = count_parts(start_a, &parts);
+	steps = count_parts(start_a, &parts);
 	if (!in_order(start_a, 'a'))
 	{
 		mark_ordered(start_a);
-		print_list(start_a, "MAIN");
-		push_swap(&start_a, step, parts, &cmds);
+		//print_list(start_a, "MAIN");
+		push_swap(&start_a, steps, parts, &cmds);
 	}
-	print_list(start_a, "LIST ORDERED");
-	//print_cmds(cmds);
+	//print_list(start_a, "LIST ORDERED");
+	print_cmds(cmds);
 	clean_list(start_a);
 	clean_cmds(cmds);
 	return (0);
