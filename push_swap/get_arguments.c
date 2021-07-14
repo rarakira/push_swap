@@ -30,6 +30,7 @@ static t_list	*init_value(char *num)
 	this->prev = NULL;
 	this->top = 0;
 	this->order = 0;
+	this->index = 0;
 	this->num = ft_atoi(num);
 	return (this);
 }

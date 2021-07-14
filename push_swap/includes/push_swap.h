@@ -14,6 +14,7 @@ typedef struct s_list
 	struct s_list	*next;
 	int				top;
 	int				order;
+	int				index;
 }	t_list;
 
 typedef struct s_cmd

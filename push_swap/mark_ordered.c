@@ -44,6 +44,59 @@ static int	compare_to_prev(t_list *list, int num)
 	return (max);
 }
 
+static int	all_indexed(t_list *list, int min)
+{
+	t_list *start;
+
+	start = list;
+	while (list)
+	{
+		if (!list->index && list->num != min)
+			return (0);
+		list = list->next;
+		if (start == list)
+			break ;
+	}
+	return (1);
+}
+
+int	find_next(t_list *current, int min, int smallest)
+{
+	int		next;
+	t_list	*start;
+
+	next = min;
+	start = current;
+	while (current)
+	{
+		if (next == min && !current->index && current->num > min
+			&& current->num != smallest)
+			next = current->num;
+		if (!current->index && next > current->num && current->num != smallest)
+			next = current->num;
+		current = current->next;
+		if (current == start)
+			break ;
+	}
+	return (next);
+}
+
+void	set_index(t_list *list, int min)
+{
+	int		i;
+	int		current;
+
+	current = min;
+	i = 0;
+	while (!all_indexed(list, min))
+	{
+		current = find_next(list, current, min);
+		while (list->num != current)
+			list = list->next;
+		list->index = ++i;
+	}
+}
+
 void	mark_ordered(t_list *list)
 {
 	int		min;
@@ -67,4 +120,5 @@ void	mark_ordered(t_list *list)
 	}
 	clean_order(list->prev, top);
 	mark_middle_nums(list);
+	set_index(list, min);
 }
