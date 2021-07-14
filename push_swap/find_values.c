@@ -34,26 +34,30 @@ int	find_max(t_list *current)
 	return (max_n);
 }
 
-/* Find smallest and largest numbers in list */
-void	init_min_max(t_list *list, int *min, int *max)
+/* i = 1 for small lists, i = 2 for large */
+static void	init_i(int parts, int *i)
 {
-	if (!(*min) && !(*max))
-	{
-		*min = find_min(list);
-		*max = find_max(list);
-	}
+	if (*i)
+		return ;
+	if (parts > 5)
+		*i = 2;
+	else
+		*i = 1;
+	return ;
 }
 
-/* i = 1 for small lists, i = 2 for large */
-int	init_i(int parts)
+/* If not init yet – find i, smallest and largest numbers in the list */
+int	init_static_values(t_list *list, int *min, int *i, int parts)
 {
-	int		i;
+	static int	max;
 
-	if (parts > 5)
-		i = 2;
-	else
-		i = 1;
-	return (i);
+	if (!(*min) && !max && !(*i))
+	{
+		*min = find_min(list);
+		max = find_max(list);
+		init_i(parts, i);
+	}
+	return (max);
 }
 
 /*

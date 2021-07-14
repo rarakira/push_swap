@@ -25,6 +25,8 @@ typedef struct s_cmd
 }	t_cmd;
 
 void	push_swap(t_list **start_a, int step, int parts, t_cmd **cmds);
+void	push_forth(t_list **start_a, t_list **start_b, int threshold,
+			t_cmd **cmds);
 void	clean_list(t_list *start);
 
 void	add_cmd(char *cmd, t_cmd **start);
@@ -48,11 +50,11 @@ t_list	*get_arguments(int argc, char **argv);
 int		in_order(t_list *start, char list_name);
 int		is_ordered(t_list *start);
 int		closer_to_start(int num, t_list *list, char list_name);
+int		count_steps(t_list *list, char list_name, int num, int type);
 
 int		find_min(t_list *current);
 int		find_max(t_list *current);
-void	init_min_max(t_list *list, int *min, int *max);
-int		init_i(int parts);
+int		init_static_values(t_list *list, int *min, int *i, int parts);
 
 void	order_list(t_list **list, char list_name, t_cmd **cmds);
 void	print_list(t_list *start, char *title);

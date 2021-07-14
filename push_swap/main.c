@@ -1,5 +1,6 @@
 #include "push_swap.h"
 
+/* Free all elements from the t_list list 'start' */
 void	clean_list(t_list *start)
 {
 	t_list	*current;
@@ -19,6 +20,7 @@ void	clean_list(t_list *start)
 	}
 }
 
+/* Free all command elements from the t_cmd list 'start' */
 void	clean_cmds(t_cmd *start)
 {
 	t_cmd	*current;

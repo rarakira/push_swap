@@ -67,7 +67,7 @@ int	in_order(t_list *start, char list_name)
 
 To count forwards: type = 1
 To count backwards: type != 1 */
-static int	count_steps(t_list *list, char list_name, int num, int type)
+int	count_steps(t_list *list, char list_name, int num, int type)
 {
 	int		count;
 

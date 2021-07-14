@@ -1,6 +1,7 @@
 #include "push_swap.h"
 
-t_cmd	*create_new_cmd(char *cmd)
+/* Creates new malloc-ed t_cmd element */
+static t_cmd	*create_new_cmd(char *cmd)
 {
 	t_cmd	*this;
 
@@ -15,7 +16,9 @@ t_cmd	*create_new_cmd(char *cmd)
 	return (this);
 }
 
-void	replace_cmd(t_cmd *last, char *cmd_curr, char *cmd_prev, char *cmd_new)
+/* Compare last command to prev & merge if possible */
+static void	update_cmd(t_cmd *last, char *cmd_curr, char *cmd_prev,
+char *cmd_new)
 {
 	t_cmd	*prev;
 
@@ -33,21 +36,23 @@ void	replace_cmd(t_cmd *last, char *cmd_curr, char *cmd_prev, char *cmd_new)
 	}
 }
 
-void	update_cmds(t_cmd *last)
+/* Check if there are commands that can be merged together */
+static void	parse_cmds(t_cmd *last)
 {
 	if (!ft_strncmp("pb", last->cmd, 3) || !ft_strncmp("pa", last->cmd, 3)
 		|| !ft_strncmp("sa", last->cmd, 3))
 		return ;
 	if (!ft_strncmp("rb", last->cmd, 3))
-		replace_cmd(last, "rb", "ra", "rr");
+		update_cmd(last, "rb", "ra", "rr");
 	if (!ft_strncmp("ra", last->cmd, 3))
-		replace_cmd(last, "ra", "rb", "rr");
+		update_cmd(last, "ra", "rb", "rr");
 	if (!ft_strncmp("rrb", last->cmd, 3))
-		replace_cmd(last, "rrb", "rra", "rrr");
+		update_cmd(last, "rrb", "rra", "rrr");
 	if (!ft_strncmp("rra", last->cmd, 3))
-		replace_cmd(last, "rra", "rrb", "rrr");
+		update_cmd(last, "rra", "rrb", "rrr");
 }
 
+/* Save new command to the t_cmd list */
 void	add_cmd(char *cmd, t_cmd **start)
 {
 	t_cmd	*last;
@@ -64,6 +69,6 @@ void	add_cmd(char *cmd, t_cmd **start)
 		tmp = last;
 		last = last->next;
 		last->prev = tmp;
-		update_cmds(last);
+		parse_cmds(last);
 	}
 }

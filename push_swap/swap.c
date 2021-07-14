@@ -9,7 +9,8 @@ void	swap(t_list **start, char list, t_cmd **cmds)
 	tmp = (*start)->num;
 	(*start)->num = (*start)->next->num;
 	(*start)->next->num = tmp;
-	(*start)->order = 1;
+	if ((*start)->order == 2)
+		(*start)->order = 1;
 	if (list == 'a')
 		add_cmd("sa", cmds);
 	else
