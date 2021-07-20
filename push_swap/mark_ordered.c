@@ -51,21 +51,24 @@ void	mark_ordered(t_list *list)
 
 	top = 0;
 	min = find_min(list);
-	while (list->num != min)
-		list = list->next;
-	while (list)
+	if (count_elements(list) <= 100)
 	{
-		if (list->prev->order == 0)
-			list->order = 1;
-		else
-			list->order = compare_to_prev(list->prev, list->num);
-		if (list->order > top)
-			top = list->order;
-		list = list->next;
-		if (list->num == min)
-			break ;
+		while (list->num != min)
+			list = list->next;
+		while (list)
+		{
+			if (list->prev->order == 0)
+				list->order = 1;
+			else
+				list->order = compare_to_prev(list->prev, list->num);
+			if (list->order > top)
+				top = list->order;
+			list = list->next;
+			if (list->num == min)
+				break ;
+		}
+		clean_order(list->prev, top);
+		mark_middle_nums(list);
 	}
-	clean_order(list->prev, top);
-	mark_middle_nums(list);
 	set_index(list, min);
 }

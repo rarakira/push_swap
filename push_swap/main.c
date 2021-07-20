@@ -42,7 +42,6 @@ void	clean_cmds(t_cmd *start)
 
 int	main(int argc, char **argv)
 {
-	int		n_el;
 	t_list	*start_a;
 	t_cmd	*cmds;
 
@@ -55,11 +54,10 @@ int	main(int argc, char **argv)
 		ft_putendl_fd("Error", 1);
 		return (1);
 	}
-	n_el = count_elements(start_a);
 	if (!in_order(start_a, 'a'))
 	{
 		mark_ordered(start_a);
-		push_swap(&start_a, n_el, &cmds);
+		push_swap(&start_a, count_elements(start_a), find_max(start_a), &cmds);
 	}
 	print_cmds(cmds);
 	clean_list(start_a);

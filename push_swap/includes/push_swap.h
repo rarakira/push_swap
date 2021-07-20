@@ -25,10 +25,9 @@ typedef struct s_cmd
 	char			cmd[4];
 }	t_cmd;
 
-void	push_swap(t_list **start_a, int n_el, t_cmd **cmds);
+void	push_swap(t_list **start_a, int n_el, int max_n, t_cmd **cmds);
 void	push_forth(t_list **start_a, t_list **start_b, t_cmd **cmds);
 int		find_closer_number(t_list **src, t_list **dst);
-//void	push_forth2(t_list **start_a, t_list **start_b, t_cmd **cmds, int th);
 void	clean_list(t_list *start);
 
 void	add_cmd(char *cmd, t_cmd **start);
