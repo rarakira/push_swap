@@ -40,11 +40,9 @@ void	clean_cmds(t_cmd *start)
 	}
 }
 
-//print_list(start_a, "MAIN");
 int	main(int argc, char **argv)
 {
-	int		parts;
-	int		steps;
+	int		n_el;
 	t_list	*start_a;
 	t_cmd	*cmds;
 
@@ -57,14 +55,12 @@ int	main(int argc, char **argv)
 		ft_putendl_fd("Error", 1);
 		return (1);
 	}
-	steps = count_parts(start_a, &parts);
+	n_el = count_elements(start_a);
 	if (!in_order(start_a, 'a'))
 	{
 		mark_ordered(start_a);
-		//print_list(start_a, "MAIN");
-		push_swap(&start_a, steps, parts, &cmds);
+		push_swap(&start_a, n_el, &cmds);
 	}
-	//print_list(start_a, "LIST ORDERED");
 	print_cmds(cmds);
 	clean_list(start_a);
 	clean_cmds(cmds);

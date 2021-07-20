@@ -14,8 +14,6 @@ static int	is_last(t_list *to_list, int n)
 static void	push_back(t_list **start_a, t_list **start_b, int max_n,
 t_cmd **cmds)
 {
-	//print_list(*start_a, "PB ::: START_A");
-	//print_list(*start_b, "PB ::: START_B");
 	if (*start_b)
 		order_list(start_b, 'b', cmds);
 	do_the_swapping(start_a, cmds);
@@ -55,36 +53,17 @@ int	count_larger_than(t_list *start_a, int threshold)
 	return (n);
 }
 
-void	push_swap(t_list **start_a, int steps, int parts, t_cmd **cmds)
+void	push_swap(t_list **start_a, int n_el, t_cmd **cmds)
 {
 	static t_list	*start_b;
 	static int		min_n;
 	static int		max_n;
-	static int		i;
 
-	max_n = init_static_values(*start_a, &min_n, &i, parts);
+	init_static_values(*start_a, &min_n, &max_n);
 	if (!start_b && in_order(*start_a, 'a'))
 		return ;
 	while (count_larger_than(*start_a, 0))
 		push_forth(start_a, &start_b, cmds);
 	push_back(start_a, &start_b, max_n, cmds);
-	return (push_swap(start_a, steps, parts, cmds));
+	return (push_swap(start_a, n_el, cmds));
 }
-
-/*
-while (i <= parts)
-	{
-		if (i < parts)
-		{
-			if (count_larger_than(*start_a, (steps * parts) - (steps * i)) < 5)
-				push_forth(start_a, &start_b, (steps * parts) - (steps * i) - 10, cmds);
-			else
-				push_forth(start_a, &start_b, (steps * parts) - (steps * i), cmds);
-		}
-		else
-			push_forth(start_a, &start_b, 0, cmds);
-		if ((i < parts && !count_larger_than(*start_a, (steps * parts) - (steps * i)))
-			|| (i == parts && !count_larger_than(*start_a, 0)))
-			i++;
-	}
-*/

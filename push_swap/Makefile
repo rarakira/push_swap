@@ -1,7 +1,8 @@
 NAME		= push_swap
 
 SRCS		=	main.c					push_swap.c\
-				get_arguments.c			push_forth.c\
+				push_forth.c			push_forth_utils.c\
+				get_arguments.c			set_index.c\
 				find_values.c			order_check.c\
 				mark_ordered.c			mark_middle_nums.c\
 				push.c					rotate.c\

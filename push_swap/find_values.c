@@ -34,60 +34,29 @@ int	find_max(t_list *current)
 	return (max_n);
 }
 
-/* i = 1 for small lists, i = 2 for large */
-static void	init_i(int parts, int *i)
-{
-	if (*i)
-		return ;
-	if (parts > 5)
-		*i = 2;
-	else
-		*i = 1;
-	return ;
-}
-
 /* If not init yet – find i, smallest and largest numbers in the list */
-int	init_static_values(t_list *list, int *min, int *i, int parts)
+void	init_static_values(t_list *list, int *min, int *max)
 {
-	static int	max;
-
-	if (!(*min) && !max && !(*i))
+	if (!(*min) && !(*max))
 	{
 		*min = find_min(list);
-		max = find_max(list);
-		init_i(parts, i);
+		*max = find_max(list);
 	}
-	return (max);
 }
 
-/*
-Counts parts for the list and the size of step.
-
-For lists smaller than 20: parts = 1
-For lists smaller than 50: parts = 2
-For lists smaller than 300: parts = (count / 15)
-For larger lists: parts = (count / 35)
-*/
-int	count_parts(t_list *list, int *parts)
+/* Counts number of elements in the list */
+int	count_elements(t_list *list)
 {
 	int		count;
-	int		step;
-	int		min_n;
-	int		max_n;
+	t_list	*start;
 
-	min_n = find_min(list);
-	max_n = find_max(list);
 	count = 0;
-	while (!list->next->top && ++count)
+	start = list;
+	while (list && ++count)
+	{
 		list = list->next;
-	if (count < 20)
-		*parts = 1;
-	else if (count < 50)
-		*parts = 2;
-	else if (count < 150)
-		*parts = count / 15;
-	else
-		*parts = count / 40;
-	step = count / (*parts);
-	return (step);
+		if (list == start)
+			break ;
+	}
+	return (count);
 }
