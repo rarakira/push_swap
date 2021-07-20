@@ -38,9 +38,7 @@ void	push_forth(t_list **start_a, t_list **start_b, t_cmd **cmds)
 	static int	i;
 	int			f;
 
-	if ((*start_a)->order && i < 10)
-		rotate(start_a, 'a', cmds);
-	else if (!*start_b || i++ < 10)
+	if (!(*start_a)->order && (!*start_b || i++ < 10))
 		push_b(start_a, start_b, cmds);
 	else
 	{

@@ -9,18 +9,15 @@ static int	is_close(int index, t_list *dst)
 
 	tmp = dst;
 	i = 0;
-	if (dst->index > index)
+	while (dst && ++i)
 	{
-		while (++i)
+		if (dst->index > index)
 		{
 			tmp = tmp->next;
 			if (tmp->index > dst->index || tmp == dst || tmp->index < index)
 				break ;
 		}
-	}
-	else
-	{
-		while (++i)
+		else
 		{
 			tmp = tmp->prev;
 			if (tmp->index < dst->index || tmp == dst || tmp->index > index)
