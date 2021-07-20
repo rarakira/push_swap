@@ -13,3 +13,4 @@ push_swap/push_swap_*
 debug
 test.sh
 checker
+genstack.pl

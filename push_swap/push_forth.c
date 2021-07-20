@@ -39,14 +39,7 @@ t_cmd **cmds)
 	else
 	{
 		if (next_is_closer(start_a, start_b, threshold))
-		{
-			while (next_is_closer(start_a, start_b, threshold))
-			{
-				swap(start_a, 'a', cmds);
-				push_b(start_a, start_b, cmds);
-			}
-		}
-		else
-			push_b(start_a, start_b, cmds);
+			swap(start_a, 'a', cmds);
+		push_b(start_a, start_b, cmds);
 	}
 }
