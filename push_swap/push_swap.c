@@ -14,10 +14,10 @@ static int	is_last(t_list *to_list, int n)
 static void	push_back(t_list **start_a, t_list **start_b, int max_n,
 t_cmd **cmds)
 {
-	if (*start_b)
-		order_list(start_b, 'b', cmds);
 	do_the_swapping(start_a, cmds);
 	order_list(start_a, 'a', cmds);
+	if (*start_b)
+		order_list(start_b, 'b', cmds);
 	while (*start_b)
 	{
 		while (*start_b && ((*start_a)->index == (*start_b)->index + 1

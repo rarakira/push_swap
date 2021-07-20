@@ -39,7 +39,7 @@ static int	check_next(t_list *src, t_list *dst, int *found, int n)
 
 	i = 0;
 	tmp = src;
-	while (++i < n + 2)
+	while (++i <= n + 1)
 	{
 		tmp = tmp->next;
 		if ((!tmp->order && is_close(tmp->index, dst) < n))
@@ -59,7 +59,7 @@ static int	check_prev(t_list *src, t_list *dst, int *found, int n)
 
 	i = 0;
 	tmp = src;
-	while (++i < n + 2)
+	while (++i < n + 1)
 	{
 		tmp = tmp->prev;
 		if ((!tmp->order && is_close(tmp->index, dst) < n))
