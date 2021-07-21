@@ -11,13 +11,13 @@ static int	is_last(t_list *to_list, int n)
 }
 
 /* Push all elements from list B to list A and put list A in order. */
-static void	merge_back(t_list **start_a, t_list **start_b, int max_n,
+static void	push_back(t_list **start_a, t_list **start_b, int max_n,
 t_cmd **cmds)
 {
 	do_the_swapping(start_a, cmds);
+	order_list(start_a, 'a', cmds);
 	if (*start_b)
 		order_list(start_b, 'b', cmds);
-	order_list(start_a, 'a', cmds);
 	while (*start_b)
 	{
 		while (*start_b && ((*start_a)->index == (*start_b)->index + 1
@@ -73,6 +73,6 @@ void	push_swap(t_list **start_a, int n_el, int max_n, t_cmd **cmds)
 	push_back_half(start_a, &start_b, cmds);
 	while (count_larger_than(*start_a, 0))
 		push_forth(start_a, &start_b, cmds);
-	merge_back(start_a, &start_b, max_n, cmds);
+	push_back(start_a, &start_b, max_n, cmds);
 	return (push_swap(start_a, n_el, max_n, cmds));
 }
