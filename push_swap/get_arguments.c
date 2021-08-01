@@ -31,6 +31,11 @@ static t_list	*init_value(char *num)
 	this->top = 0;
 	this->order = 0;
 	this->index = 0;
+	if (ft_atoi(num) < -2147483648 || ft_atoi(num) > 2147483647)
+	{
+		free(this);
+		return (NULL);
+	}
 	this->num = ft_atoi(num);
 	return (this);
 }

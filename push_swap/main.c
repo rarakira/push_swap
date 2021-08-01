@@ -25,7 +25,7 @@ void	clean_cmds(t_cmd *start)
 {
 	t_cmd	*current;
 
-	if (start->prev)
+	if (start && start->prev)
 	{
 		current = start->prev;
 		current->next = NULL;
@@ -51,7 +51,7 @@ int	main(int argc, char **argv)
 	start_a = get_arguments(argc, argv);
 	if (!start_a)
 	{
-		ft_putendl_fd("Error", 1);
+		ft_putendl_fd("\033[1;38;5;203mError\033[0m", 2);
 		return (1);
 	}
 	if (!in_order(start_a, 'a'))

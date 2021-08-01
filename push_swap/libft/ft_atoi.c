@@ -6,7 +6,7 @@
 /*   By: lbaela <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/18 16:16:51 by lbaela            #+#    #+#             */
-/*   Updated: 2021/04/27 16:37:50 by lbaela           ###   ########.fr       */
+/*   Updated: 2021/07/31 11:54:17 by lbaela           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,11 @@ static int	isspace(int ch)
 
 /* Function converts the initial portion of the string pointed to by 'str'
 to int representation. */
-int	ft_atoi(const char *str)
+long	ft_atoi(const char *str)
 {
-	int	i;
-	int	sign;
-	int	result;
+	int		i;
+	int		sign;
+	long	result;
 
 	i = 0;
 	result = 0;
