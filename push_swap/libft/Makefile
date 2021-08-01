@@ -6,7 +6,7 @@
 #    By: lbaela <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/04/18 14:03:12 by lbaela            #+#    #+#              #
-#    Updated: 2021/07/13 18:10:00 by lbaela           ###   ########.fr        #
+#    Updated: 2021/08/01 22:02:18 by lbaela           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,10 +32,11 @@ $(NAME) : $(OBJS)
 
 clean :
 	@rm -f $(OBJS) $(OBJS_B)
-#	@echo "*  Libft objects removed"
+#	@echo "\033[1;38;5;117m*  Libft objects removed\033[0m"
 
 fclean : clean
 	@rm -f $(NAME)
+	@echo "\033[1;38;5;117m*  libft.a removed\033[0m"
 
 re : fclean all
 

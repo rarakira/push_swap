@@ -4,11 +4,15 @@
 /* Swap operation */
 void	swap(t_list **start, char list, t_cmd **cmds)
 {
-	int		tmp;
+	int		tmp_n;
+	int		tmp_i;
 
-	tmp = (*start)->num;
+	tmp_n = (*start)->num;
+	tmp_i = (*start)->index;
+	(*start)->index = (*start)->next->index;
 	(*start)->num = (*start)->next->num;
-	(*start)->next->num = tmp;
+	(*start)->next->index = tmp_i;
+	(*start)->next->num = tmp_n;
 	if ((*start)->order == 2)
 		(*start)->order = 1;
 	if (list == 'a')

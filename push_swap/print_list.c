@@ -21,7 +21,7 @@ void	print_list(t_list *start, char *title)
 	while (start)
 	{
 		//printf("%d -> %d -> %d\n", start->num, start->next->num, start->next->next->num);
-		printf("%d (o:%d)\n", start->num, start->order);
+		printf("[%d]\t%d (o:%d)\n", start->index, start->num, start->order);
 		start = start->next;
 		//printf("%d is top :: %d\n", start->num, start->top);
 		if (start->top)

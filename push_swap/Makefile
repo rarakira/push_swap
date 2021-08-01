@@ -1,7 +1,8 @@
 NAME		= push_swap
 
 SRCS		=	main.c					push_swap.c\
-				get_arguments.c			push_forth.c\
+				push_forth.c			push_forth_utils.c\
+				get_arguments.c			set_index.c\
 				find_values.c			order_check.c\
 				mark_ordered.c			mark_middle_nums.c\
 				push.c					rotate.c\
@@ -18,7 +19,7 @@ CC			= gcc
 
 CFLAGS		= -Wall -Wextra -Werror
 
-GFLAGS		= -g -fsanitize=address
+GFLAGS		= -fsanitize=address -g
 
 INCLUDES	= -Iincludes
 
@@ -40,29 +41,30 @@ lib:
 		$(MAKE) -C $(LIBDIR)
 
 norm:
-	@norminette ./*.c $(LIBDIR)/*.c includes/*.h
+		@norminette ./*.c $(LIBDIR)/*.c includes/*.h
 
 clean:
 		@$(RM) $(OBJS)
 		@$(MAKE) clean -C $(LIBDIR)
-#		@echo "*  Push_swap objects removed"
+		@echo "\033[1;38;5;221m*  push_swap objects removed\033[0m"
 
 fclean:	clean
-		$(RM) $(NAME) debug
-		$(MAKE) fclean -C $(LIBDIR)
+		@$(RM) $(NAME) debug
+		@$(MAKE) fclean -C $(LIBDIR)
+		@echo "\033[1;38;5;221m*  push_swap removed\033[0m"
 
 re:		fclean all
 
 $(DEBUG):
-		$(CC) $(CFLAGS) $(INCLUDES) $(GFLAGS) $(SRCS) -L$(LIBDIR) -l$(LIB) -o $(DEBUG)
+		clang $(CFLAGS) $(GFLAGS) $(INCLUDES) $(SRCS) -L$(LIBDIR) -l$(LIB) -o $(DEBUG)
 
 play: all
 		./$(NAME) $(ARGS)
 
-leaks: all $(DEBUG)
+leaks: $(DEBUG)
 		./$(DEBUG) $(ARGS)
 
-leaks_v: all
-		valgrind --leak-check=full --show-leak-kinds=all ./$(NAME) $(ARGS)
+leaks_valg: all
+		valgrind --leak-check=full ./$(NAME) $(ARGS)
 
-.PHONY: all clean fclean re play norm leaks leaks_v debug
+.PHONY: all clean fclean re play norm leaks leaks_valg debug

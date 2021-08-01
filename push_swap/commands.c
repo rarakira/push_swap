@@ -25,7 +25,8 @@ char *cmd_new)
 	prev = last->prev;
 	if (!ft_strncmp(cmd_curr, last->cmd, 3))
 	{
-		while (!prev->print || !ft_strncmp(cmd_new, prev->cmd, 4))
+		while (prev->prev && (!prev->print || !ft_strncmp(cmd_new, prev->cmd, 4)
+				|| !ft_strncmp("sa", prev->cmd, 3)))
 			prev = prev->prev;
 		if (!ft_strncmp(cmd_prev, prev->cmd, 3))
 		{
