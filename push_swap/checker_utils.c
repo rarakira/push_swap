@@ -87,7 +87,7 @@ int	exec_cmd(char *cmd, t_list **start_a, t_list **start_b, t_cmd **cmds)
 		res = exec_swap(cmd, start_a, start_b, cmds);
 	else if (*cmd == 'p')
 		res = exec_push(cmd, start_a, start_b, cmds);
-	else if (*cmd == 'r' && cmd[1] == 'r')
+	else if (*cmd == 'r' && cmd[1] == 'r' && cmd[2])
 		res = exec_rev(cmd, start_a, start_b, cmds);
 	else if (*cmd == 'r')
 		res = exec_rotate(cmd, start_a, start_b, cmds);
