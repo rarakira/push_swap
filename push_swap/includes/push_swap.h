@@ -39,7 +39,7 @@ void	mark_middle_nums(t_list *list);
 void	set_index(t_list *list, int min);
 
 void	push_b(t_list **from, t_list **to, t_cmd **cmds);
-void	push_a(t_list **from, t_list **to, t_cmd **cmds);
+void	push(t_list **from, t_list **to, t_cmd **cmds, char list);
 
 void	rotate(t_list **start, char list, t_cmd **cmds);
 void	rev_rotate(t_list **start, char list, t_cmd **cmds);
@@ -60,6 +60,11 @@ void	init_static_values(t_list *list, int *min, int *max);
 int		count_larger_than(t_list *start_a, int threshold);
 
 void	order_list(t_list **list, char list_name, t_cmd **cmds);
-void	print_list(t_list *start, char *title);
+void	print_lists(t_list *start_a, t_list *start_b, char *title);
+
+void	clean_cmds(t_cmd *start);
+void	clean_list(t_list *start);
+
+int		exec_cmd(char *cmd, t_list **start_a, t_list **start_b, t_cmd **cmds);
 
 #endif

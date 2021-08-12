@@ -25,7 +25,7 @@ static void	rotate_for_tmp(t_list **to, t_list *tmp, t_cmd **cmds)
 	}
 }
 
-/* Function that adds first and second element to the list B */
+/* Function that adds first and second element to the list*/
 static void	first_second_elt(t_list **to, t_list *tmp)
 {
 	if (*to == NULL)
@@ -45,50 +45,8 @@ static void	first_second_elt(t_list **to, t_list *tmp)
 	}
 }
 
-/* Push to B operation */
-void	push_b(t_list **from, t_list **to, t_cmd **cmds)
+static void	link_new_elt(t_list *tmp, t_list **to)
 {
-	t_list		*tmp;
-
-	tmp = *from;
-	(*from)->next->top = 1;
-	(*from)->next->prev = (*from)->prev;
-	(*from)->prev->next = (*from)->next;
-	*from = (*from)->next;
-	if (*to == NULL || *to == (*to)->next)
-		first_second_elt(to, tmp);
-	else
-	{
-		rotate_for_tmp(to, tmp, cmds);
-		tmp->next = *to;
-		tmp->prev = (*to)->prev;
-		(*to)->top = 0;
-		(*to)->prev = tmp;
-		*to = tmp;
-		tmp = tmp->prev;
-		tmp->next = *to;
-	}
-	add_cmd("pb", cmds);
-}
-
-/* Push to A operation */
-void	push_a(t_list **from, t_list **to, t_cmd **cmds)
-{
-	t_list		*last;
-	t_list		*tmp;
-
-	tmp = *from;
-	tmp->order = 1;
-	if (*from != (*from)->next)
-	{
-		last = (*from)->prev;
-		*from = (*from)->next;
-		(*from)->top = 1;
-		last->next = *from;
-		(*from)->prev = last;
-	}
-	else
-		*from = NULL;
 	tmp->next = *to;
 	tmp->prev = (*to)->prev;
 	(*to)->top = 0;
@@ -96,5 +54,59 @@ void	push_a(t_list **from, t_list **to, t_cmd **cmds)
 	*to = tmp;
 	tmp = tmp->prev;
 	tmp->next = *to;
-	add_cmd("pa", cmds);
+}
+
+/* Push to B operation */
+void	push_b(t_list **from, t_list **to, t_cmd **cmds)
+{
+	t_list		*tmp;
+
+	if (!*from)
+		return ;
+	tmp = *from;
+	if (*from != (*from)->next)
+	{
+		(*from)->next->top = 1;
+		(*from)->next->prev = (*from)->prev;
+		(*from)->prev->next = (*from)->next;
+		*from = (*from)->next;
+	}
+	else
+		*from = NULL;
+	if (*to == NULL || *to == (*to)->next)
+		first_second_elt(to, tmp);
+	else
+	{
+		rotate_for_tmp(to, tmp, cmds);
+		link_new_elt(tmp, to);
+	}
+	add_cmd("pb", cmds);
+}
+
+/* Push operation (for A and checker) */
+void	push(t_list **from, t_list **to, t_cmd **cmds, char list)
+{
+	t_list		*tmp;
+
+	if (!*from)
+		return ;
+	tmp = *from;
+	tmp->order = 1;
+	if (*from != (*from)->next)
+	{
+		(*from)->next->top = 1;
+		(*from)->next->prev = (*from)->prev;
+		(*from)->prev->next = (*from)->next;
+		*from = (*from)->next;
+	}
+	else
+		*from = NULL;
+	if (*to == NULL || *to == (*to)->next)
+		first_second_elt(to, tmp);
+	else
+		link_new_elt(tmp, to);
+	if (list == 'a')
+		add_cmd("pa", cmds);
+	else
+		add_cmd("pb", cmds);
 }

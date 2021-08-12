@@ -7,6 +7,8 @@ void	swap(t_list **start, char list, t_cmd **cmds)
 	int		tmp_n;
 	int		tmp_i;
 
+	if (!*start || *start == (*start)->next)
+		return ;
 	tmp_n = (*start)->num;
 	tmp_i = (*start)->index;
 	(*start)->index = (*start)->next->index;

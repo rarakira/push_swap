@@ -9,8 +9,9 @@
 *drafts/
 checker_Mac
 */push_swap
-push_swap/push_swap_*
+push_swap/push_swap_*/
 debug
 test.sh
 checker
 genstack.pl
+numbers100*
