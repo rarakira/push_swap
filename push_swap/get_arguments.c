@@ -20,8 +20,10 @@ static t_list	*init_value(char *num)
 	int			i;
 
 	i = 0;
+	if (num[i] == '-' && ft_isdigit(num[i + 1]))
+		i++;
 	while (num[i] != '\0')
-		if (ft_isalpha(num[i++]))
+		if (!ft_isdigit(num[i++]))
 			return (NULL);
 	this = (t_list *)malloc(sizeof(t_list));
 	if (!this)
