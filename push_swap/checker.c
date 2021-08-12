@@ -6,8 +6,7 @@ int	checker(t_list **start_a, t_list **start_b, int print_flag, t_cmd **cmds)
 	int		res;
 
 	cmd = NULL;
-	ft_putstr_fd("> ", 1);
-	res = get_next_line(0, &cmd);
+	res = get_next_line(0, &cmd, print_flag);
 	while (res > 0)
 	{
 		res = exec_cmd(cmd, start_a, start_b, cmds);
@@ -16,8 +15,7 @@ int	checker(t_list **start_a, t_list **start_b, int print_flag, t_cmd **cmds)
 		if (print_flag)
 			print_lists(*start_a, *start_b, cmd);
 		free(cmd);
-		ft_putstr_fd("> ", 1);
-		res = get_next_line(0, &cmd);
+		res = get_next_line(0, &cmd, print_flag);
 	}
 	free(cmd);
 	if (print_flag)
@@ -39,6 +37,21 @@ static void	print_result(int res)
 		ft_putendl_fd("\033[1;38;5;203mOops, something went wrong.\033[0m", 2);
 }
 
+static void	clean_all(t_list *start_a, t_list *start_b, t_cmd	*cmds)
+{
+	clean_cmds(cmds);
+	clean_list(start_a);
+	clean_list(start_b);
+}
+
+static int	init_vals(t_cmd **cmds, t_list **start_b, int *flag)
+{
+	*cmds = NULL;
+	*flag = 0;
+	*start_b = NULL;
+	return (1);
+}
+
 int	main(int argc, char **argv)
 {
 	t_list	*start_a;
@@ -46,17 +59,10 @@ int	main(int argc, char **argv)
 	t_cmd	*cmds;
 	int		print_flag;
 
-	cmds = NULL;
-	print_flag = 0;
-	start_b = NULL;
-	if (argc == 1)
+	if (init_vals(&cmds, &start_b, &print_flag) && argc == 1)
 		return (1);
-	if (!ft_strncmp("--print", argv[1], ft_strlen("--print")))
-	{
+	if (!ft_strncmp("--print", argv[1], 8) && --argc && ++argv)
 		print_flag = 1;
-		argc--;
-		argv++;
-	}
 	if (argc == 1)
 		return (1);
 	start_a = get_arguments(argc, argv);
@@ -68,8 +74,6 @@ int	main(int argc, char **argv)
 	if (print_flag)
 		print_lists(start_a, start_b, "Stacks on Start");
 	print_result(checker(&start_a, &start_b, print_flag, &cmds));
-	clean_cmds(cmds);
-	clean_list(start_a);
-	clean_list(start_b);
+	clean_all(start_a, start_b, cmds);
 	return (0);
 }

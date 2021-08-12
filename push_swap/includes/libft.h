@@ -6,7 +6,7 @@
 /*   By: lbaela <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/18 12:24:40 by lbaela            #+#    #+#             */
-/*   Updated: 2021/08/11 22:05:38 by lbaela           ###   ########.fr       */
+/*   Updated: 2021/08/12 17:51:17 by lbaela           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	ft_putstr_fd(char *s, int fd);
 void	ft_putendl_fd(char *s, int fd);
 void	ft_putnbr_fd(int n, int fd);
 
-int		get_next_line(int fd, char **line);
+int		get_next_line(int fd, char **line, int print);
 char	*ft_strjoin(char const *s1, char const *s2);
 char	*ft_strdup(const char *s1);
 

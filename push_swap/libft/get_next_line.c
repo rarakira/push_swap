@@ -74,12 +74,14 @@ int	launch_read (char **rem, char **buf, int fd)
 	return (read_res);
 }
 
-int	get_next_line(int fd, char **line)
+int	get_next_line(int fd, char **line, int print)
 {
 	static char		*rem = 0;
 	ssize_t			read_res;
 	char			*buf;
 
+	if (print)
+		ft_putstr_fd("> ", 1);
 	buf = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
 	if (fd < 0 || !line || !buf)
 		return (clean_up(&buf, &rem));
