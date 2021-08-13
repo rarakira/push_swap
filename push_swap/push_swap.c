@@ -20,6 +20,7 @@ int	main(int argc, char **argv)
 		push_swap(&start_a, count_elements(start_a), find_max(start_a), &cmds);
 	}
 	print_cmds(cmds);
+	//print_lists(start_a, NULL, "Stacks on Finish");
 	clean_list(start_a);
 	clean_cmds(cmds);
 	return (0);
