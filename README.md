@@ -47,8 +47,8 @@ The program takes as an argument the stack a formatted as a list of integers. Th
 
 ## Results (100 tests mean)
 
-    **4780** operations for 500 numbers
-    **587** operations for 100 numbers
+    4780 operations for 500 numbers
+    587  operations for 100 numbers
 
 
 ### Sorting 100 integers
